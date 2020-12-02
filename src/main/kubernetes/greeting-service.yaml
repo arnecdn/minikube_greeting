@@ -1,0 +1,50 @@
+kind: Service
+apiVersion: v1
+metadata:
+    name: greeting
+    namespace: default
+    selfLink: /api/v1/namespaces/default/services/greeting
+    uid: df66302c-d567-4aa7-9edb-fe84f1bc7e1d
+    resourceVersion: '403430'
+    creationTimestamp: '2020-12-02T07:22:49Z'
+    labels:
+        app: greeting
+    managedFields:
+        - manager: kubectl-expose
+          operation: Update
+          apiVersion: v1
+          time: '2020-12-02T07:22:49Z'
+          fieldsType: FieldsV1
+          fieldsV1:
+              'f:metadata':
+                  'f:labels':
+                      .: {}
+                      'f:app': {}
+              'f:spec':
+                  'f:externalTrafficPolicy': {}
+                  'f:ports':
+                      .: {}
+                      'k:{"port":8080,"protocol":"TCP"}':
+                          .: {}
+                          'f:port': {}
+                          'f:protocol': {}
+                          'f:targetPort': {}
+                  'f:selector':
+                      .: {}
+                      'f:app': {}
+                  'f:sessionAffinity': {}
+                  'f:type': {}
+spec:
+    ports:
+        - protocol: TCP
+          port: 8080
+          targetPort: 8080
+          nodePort: 32026
+    selector:
+        app: greeting
+    clusterIP: 10.102.111.93
+    type: NodePort
+    sessionAffinity: None
+    externalTrafficPolicy: Cluster
+status:
+    loadBalancer: {}
