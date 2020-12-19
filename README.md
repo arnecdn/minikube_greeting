@@ -48,3 +48,10 @@ If you want to learn more about building native executables, please consult http
 <p>A Hello World RESTEasy resource</p>
 
 Guide: https://quarkus.io/guides/rest-json
+
+
+# Testcontainers
+If getting http 404 when running test, try to pull image to local docker registry
+```
+docker pull testcontainers/ryuk:0.3.0
+```
