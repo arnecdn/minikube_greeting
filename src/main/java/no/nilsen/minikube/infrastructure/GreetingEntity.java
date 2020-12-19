@@ -2,37 +2,46 @@ package no.nilsen.minikube.infrastructure;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import no.nilsen.minikube.core.greeting.Greeting;
 
 @Entity
-public class GreetingEntity  {
+@Table(name="greeting")
+public class GreetingEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String message;
-    private LocalDateTime created;
-    private String createdBy;
+    @Column(name="id")
+    private long id;
 
-    public long getId() {
-        return id;
-    }
+    @Column(name="message")
+    private String message;
+
+    @Column(name="created")
+    private LocalDateTime created;
+
+    @Column(name="created_by")
+    private String createdBy;
 
     public String getMessage() {
         return message;
     }
 
-    public LocalDateTime getCreated() {
-        return created;
+    public static GreetingEntity ofGreeting(final Greeting greeting) {
+        return GreetingEntity.GreetingEntityBuilder.aGreetingEntity()
+            .withMessage(greeting.getMessage())
+            .withCreatedBy(greeting.getCreatedBy())
+            .withCreated(greeting.getCreated())
+            .build();
     }
 
-    public String getCreatedBy() {
-        return createdBy;
-
+    public Greeting toGreeting() {
+        return Greeting.GreetingBuilder.aGreeting().withMessage(this.getMessage()).build();
     }
 
     public static final class GreetingEntityBuilder {
@@ -44,11 +53,6 @@ public class GreetingEntity  {
         private GreetingEntityBuilder() {}
 
         public static GreetingEntityBuilder aGreetingEntity() { return new GreetingEntityBuilder(); }
-
-        public GreetingEntityBuilder withId(long id) {
-            this.id = id;
-            return this;
-        }
 
         public GreetingEntityBuilder withMessage(String message) {
             this.message = message;
@@ -74,4 +78,5 @@ public class GreetingEntity  {
             return greetingEntity;
         }
     }
+
 }

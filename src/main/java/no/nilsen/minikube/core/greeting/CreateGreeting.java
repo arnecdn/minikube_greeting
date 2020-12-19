@@ -1,8 +1,6 @@
 package no.nilsen.minikube.core.greeting;
 
 public class CreateGreeting {
-
-
     private CreateGreeting() {
     }
 

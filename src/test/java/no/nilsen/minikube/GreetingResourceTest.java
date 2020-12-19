@@ -1,13 +1,11 @@
 package no.nilsen.minikube;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
 
 import static io.restassured.RestAssured.given;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.jupiter.api.Test;
-import org.testcontainers.containers.PostgreSQLContainer;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
@@ -22,7 +20,7 @@ public class GreetingResourceTest {
     @Test
     public void testHelloEndpoint() {
         given()
-            .when().get("/hello-resteasy")
+            .when().get("/hello-resteasy/sample")
             .then()
             .statusCode(200)
             .body(is("Hello RESTEasy"));
@@ -30,7 +28,7 @@ public class GreetingResourceTest {
 
     @Test
     public void testCreateGreeting() {
-        GreetingDto greetingDto = new GreetingDto("Hello RESTEasy", "arne");
+        GreetingDto greetingDto = new GreetingDto("God Jul", "arne");
 
         given()
             .contentType(ContentType.JSON)
@@ -41,6 +39,15 @@ public class GreetingResourceTest {
             .then()
             .statusCode(200)
             .body(is(greetingDto.getGreeting()));
+
+        given()
+            .accept(ContentType.JSON)
+            .when()
+            .get("/hello-resteasy")
+            .then()
+            .statusCode(200)
+            .body(is(notNullValue()));
+
     }
 
 }

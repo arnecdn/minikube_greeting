@@ -16,21 +16,14 @@ public class GreetingRepositoryJdbc implements GreetingRepository, PanacheReposi
     @Override
     @Transactional(Transactional.TxType.REQUIRES_NEW)
     public void save(final Greeting greeting) {
-        persist(GreetingEntity.GreetingEntityBuilder.aGreetingEntity()
-            .withMessage(greeting.getMessage())
-            .withCreatedBy(greeting.getCreatedBy())
-            .withCreated(greeting.getCreated())
-            .build()
-        );
+        persist( GreetingEntity.ofGreeting(greeting));
     }
 
     @Override
     public List<Greeting> fetchAll() {
-
-        List<GreetingEntity> greetingEntities = listAll();
-        return greetingEntities.stream().map(e -> {
-            return Greeting.GreetingBuilder.aGreeting().withMessage(e.getMessage()).build();
-        })
+        return listAll()
+            .stream()
+            .map(GreetingEntity::toGreeting)
             .collect(Collectors.toList());
     }
 }

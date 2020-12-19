@@ -8,10 +8,6 @@ public class Greeting {
     private LocalDateTime created;
     private String createdBy;
 
-    public long getId() {
-        return id;
-    }
-
     public String getMessage() {
         return message;
     }
@@ -33,11 +29,6 @@ public class Greeting {
         private GreetingBuilder() {}
 
         public static GreetingBuilder aGreeting() { return new GreetingBuilder(); }
-
-        public GreetingBuilder withId(long id) {
-            this.id = id;
-            return this;
-        }
 
         public GreetingBuilder withMessage(String message) {
             this.message = message;

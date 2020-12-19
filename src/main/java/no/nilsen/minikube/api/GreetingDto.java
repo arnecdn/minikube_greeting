@@ -1,5 +1,9 @@
 package no.nilsen.minikube.api;
 
+import java.time.LocalDateTime;
+
+import no.nilsen.minikube.core.greeting.Greeting;
+
 public class GreetingDto {
     private String greeting;
     private String from;
@@ -9,22 +13,20 @@ public class GreetingDto {
         this.from = from;
     }
 
-    public GreetingDto() {
-    }
-
-    public void setGreeting(final String greeting) {
-        this.greeting = greeting;
-    }
-
-    public void setFrom(final String from) {
-        this.from = from;
-    }
-
     public String getGreeting() {
         return greeting;
     }
 
     public String getFrom() {
         return from;
+    }
+
+    public static GreetingDto ofGreeting(final Greeting greeting) {
+        return new GreetingDto(greeting.getMessage(), greeting.getCreatedBy());
+    }
+
+    public Greeting toGreeting() {
+        return Greeting.GreetingBuilder.aGreeting().withMessage(this.getGreeting())
+            .withCreatedBy(this.getFrom()).withCreated(LocalDateTime.now()).build();
     }
 }

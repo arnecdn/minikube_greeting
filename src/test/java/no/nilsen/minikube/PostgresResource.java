@@ -10,11 +10,12 @@ import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 public class PostgresResource implements
     QuarkusTestResourceLifecycleManager {
 
-    static PostgreSQLContainer<?> db =
-        new PostgreSQLContainer<>("postgres:11")
-            .withDatabaseName("greeting-db")
+    static final PostgreSQLContainer<?> db =
+        new PostgreSQLContainer<>("postgres:13")
+            //.withDatabaseName("greeting-db")
             .withUsername("greeting")
-            .withPassword("greeting");
+            .withPassword("greeting")
+        ;
 
     @Override
     public Map<String, String> start() {

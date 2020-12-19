@@ -1,4 +1,4 @@
-CREATE TABLE quarkus
+CREATE TABLE greeting
 (
     id   BIGSERIAL primary key ,
     message VARCHAR(4000),
