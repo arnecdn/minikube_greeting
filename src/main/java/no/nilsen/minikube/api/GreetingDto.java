@@ -8,6 +8,9 @@ public class GreetingDto {
     private String greeting;
     private String from;
 
+    public GreetingDto() {
+    }
+
     public GreetingDto(final String greeting, final String from) {
         this.greeting = greeting;
         this.from = from;

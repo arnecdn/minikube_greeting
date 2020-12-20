@@ -14,7 +14,7 @@ import no.nilsen.minikube.core.greeting.GreetingRepository;
 public class GreetingRepositoryJdbc implements GreetingRepository, PanacheRepository<GreetingEntity> {
 
     @Override
-    @Transactional(Transactional.TxType.REQUIRES_NEW)
+    @Transactional
     public void save(final Greeting greeting) {
         persist( GreetingEntity.ofGreeting(greeting));
     }
