@@ -61,4 +61,4 @@ metadata:
     labels:
         app: postgres-greeting
 data:
-    POSTGRES_PASSWORD: greeting
+    POSTGRES_PASSWORD: Z3JlZXRpbmc=
