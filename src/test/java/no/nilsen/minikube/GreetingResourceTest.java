@@ -20,30 +20,30 @@ public class GreetingResourceTest {
     @Test
     public void testHelloEndpoint() {
         given()
-            .when().get("/hello-resteasy/sample")
+            .when().get("/greeting/sample")
             .then()
             .statusCode(200)
-            .body(is("Hello RESTEasy"));
+            .body(is(notNullValue()));
     }
 
     @Test
     public void testCreateGreeting() {
-        GreetingDto greetingDto = new GreetingDto("God Jul", "arne");
+        GreetingDto greetingDto = new GreetingDto("Anynomous", "Happy Christmas", "Anynomous");
 
         given()
             .contentType(ContentType.JSON)
             .body(greetingDto)
             .accept(ContentType.TEXT)
             .when()
-            .post("/hello-resteasy")
+            .post("/greeting")
             .then()
             .statusCode(200)
-            .body(is(greetingDto.getGreeting()));
+            .body(is(greetingDto.getMessage()));
 
         given()
             .accept(ContentType.JSON)
             .when()
-            .get("/hello-resteasy")
+            .get("/greeting")
             .then()
             .statusCode(200)
             .body(is(notNullValue()));

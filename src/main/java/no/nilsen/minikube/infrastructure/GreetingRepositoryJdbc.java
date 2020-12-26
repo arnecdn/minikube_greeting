@@ -26,4 +26,10 @@ public class GreetingRepositoryJdbc implements GreetingRepository, PanacheReposi
             .map(GreetingEntity::toGreeting)
             .collect(Collectors.toList());
     }
+
+    @Override
+    @Transactional
+    public long deleteAllGreetings() {
+        return deleteAll();
+    }
 }

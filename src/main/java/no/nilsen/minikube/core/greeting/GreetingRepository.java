@@ -6,4 +6,6 @@ public interface GreetingRepository {
     void save(Greeting greeting);
 
     List<Greeting> fetchAll();
+
+    long deleteAllGreetings();
 }

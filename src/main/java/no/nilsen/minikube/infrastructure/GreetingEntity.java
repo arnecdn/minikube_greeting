@@ -19,14 +19,17 @@ public class GreetingEntity {
     @Column(name="id")
     private long id;
 
+    @Column(name="receiver")
+    private String receiver;
+
     @Column(name="message")
     private String message;
 
     @Column(name="created")
     private LocalDateTime created;
 
-    @Column(name="created_by")
-    private String createdBy;
+    @Column(name="sender")
+    private String sender;
 
     public String getMessage() {
         return message;
@@ -34,25 +37,37 @@ public class GreetingEntity {
 
     public static GreetingEntity ofGreeting(final Greeting greeting) {
         return GreetingEntity.GreetingEntityBuilder.aGreetingEntity()
+            .withReceiver(greeting.getReceiver())
             .withMessage(greeting.getMessage())
-            .withCreatedBy(greeting.getCreatedBy())
+            .withSender(greeting.getSender())
             .withCreated(greeting.getCreated())
             .build();
     }
 
     public Greeting toGreeting() {
-        return Greeting.GreetingBuilder.aGreeting().withMessage(this.getMessage()).build();
+        return Greeting.GreetingBuilder.aGreeting().withReceiver(this.receiver).withSender(this.sender).withMessage(this.getMessage()).build();
     }
 
     public static final class GreetingEntityBuilder {
         private long id;
+        private String receiver;
         private String message;
         private LocalDateTime created;
-        private String createdBy;
+        private String sender;
 
         private GreetingEntityBuilder() {}
 
         public static GreetingEntityBuilder aGreetingEntity() { return new GreetingEntityBuilder(); }
+
+        public GreetingEntityBuilder withId(long id) {
+            this.id = id;
+            return this;
+        }
+
+        public GreetingEntityBuilder withReceiver(String receiver) {
+            this.receiver = receiver;
+            return this;
+        }
 
         public GreetingEntityBuilder withMessage(String message) {
             this.message = message;
@@ -64,8 +79,8 @@ public class GreetingEntity {
             return this;
         }
 
-        public GreetingEntityBuilder withCreatedBy(String createdBy) {
-            this.createdBy = createdBy;
+        public GreetingEntityBuilder withSender(String sender) {
+            this.sender = sender;
             return this;
         }
 
@@ -73,10 +88,10 @@ public class GreetingEntity {
             GreetingEntity greetingEntity = new GreetingEntity();
             greetingEntity.message = this.message;
             greetingEntity.id = this.id;
+            greetingEntity.sender = this.sender;
+            greetingEntity.receiver = this.receiver;
             greetingEntity.created = this.created;
-            greetingEntity.createdBy = this.createdBy;
             return greetingEntity;
         }
     }
-
 }
