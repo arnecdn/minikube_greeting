@@ -6,6 +6,8 @@ spec:
     selector:
         matchLabels:
             app: greeting
+    replicas: 2
+
     template:
         metadata:
             creationTimestamp: null
@@ -15,10 +17,9 @@ spec:
             containers:
                 - name: minikube-greeting-htbhr
                   image: quarkus/minikube_greeting-jvm:latest
-                  resources: {}
-                  terminationMessagePath: /dev/termination-log
-                  terminationMessagePolicy: File
                   imagePullPolicy: IfNotPresent
+                  ports:
+                      -   containerPort: 8080
                   env:
                       -   name: POSTGRES_HOST
                           value: postgres-greeting
@@ -46,25 +47,37 @@ spec:
             schedulerName: default-scheduler
     strategy:
         type: RollingUpdate
-        rollingUpdate:
-            maxUnavailable: 25%
-            maxSurge: 25%
-    revisionHistoryLimit: 10
-    progressDeadlineSeconds: 600
+#---
+#kind: Service
+#apiVersion: v1
+#metadata:
+#    name: greeting
+#spec:
+#    ports:
+#        - protocol: TCP
+#          port: 8080
+#          targetPort: 8080
+#          nodePort: 32026
+#    selector:
+#        app: greeting
+#    clusterIP: 10.102.111.93
+#    type: NodePort
+#    sessionAffinity: None
+#    externalTrafficPolicy: Cluster
 ---
 kind: Service
 apiVersion: v1
 metadata:
-    name: greeting
+    name: greeting-loadbalancer
 spec:
     ports:
         - protocol: TCP
           port: 8080
           targetPort: 8080
-          nodePort: 32026
+          nodePort: 32072
     selector:
         app: greeting
-    clusterIP: 10.102.111.93
-    type: NodePort
+    clusterIP: 10.103.13.112
+    type: LoadBalancer
     sessionAffinity: None
     externalTrafficPolicy: Cluster
