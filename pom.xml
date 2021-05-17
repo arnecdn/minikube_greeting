@@ -61,7 +61,11 @@
       <version>1.10.3.Final</version>
     </dependency>
     <!--    Test  -->
-
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <version>1.4.200</version>
+    </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-junit5</artifactId>

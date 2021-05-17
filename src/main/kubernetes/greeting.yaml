@@ -60,24 +60,23 @@ spec:
 #          nodePort: 32026
 #    selector:
 #        app: greeting
-#    clusterIP: 10.102.111.93
 #    type: NodePort
 #    sessionAffinity: None
 #    externalTrafficPolicy: Cluster
----
-kind: Service
-apiVersion: v1
-metadata:
-    name: greeting-loadbalancer
-spec:
-    ports:
-        - protocol: TCP
-          port: 8080
-          targetPort: 8080
-          nodePort: 32072
-    selector:
-        app: greeting
-    clusterIP: 10.103.13.112
-    type: LoadBalancer
-    sessionAffinity: None
-    externalTrafficPolicy: Cluster
+#---
+#kind: Service
+#apiVersion: v1
+#metadata:
+#    name: greeting-loadbalancer
+#spec:
+#    ports:
+#        - protocol: TCP
+#          port: 8080
+#          targetPort: 8080
+#          nodePort: 32072
+#    selector:
+#        app: greeting
+#    clusterIP: 10.103.13.112
+#    type: LoadBalancer
+#    sessionAffinity: None
+#    externalTrafficPolicy: Cluster
